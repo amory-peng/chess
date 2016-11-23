@@ -66,5 +66,6 @@ end
 
 test = Board.new
 test.fill_board
+
 test2 = Display.new(test)
 test2.play_turn

@@ -1,12 +1,9 @@
 require_relative "piece"
 
 class NullPiece < Piece
-  attr_accessor :symbol, :value
-  def initialize
-    #@value = nil
-    @color = nil
+  attr_accessor :symbol
+  def initialize(color, pos, board)
     @symbol = "."
-    @value = nil
   end
 
   def nil?

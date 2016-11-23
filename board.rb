@@ -10,7 +10,7 @@ require_relative 'knight'
 class Board
   attr_accessor :board, :place_holder, :current_player
   def initialize
-    @place_holder = NullPiece.new
+    @place_holder = NullPiece.new(nil, nil, nil)
     @board = Array.new(8) { Array.new(8, place_holder) }
     @current_player = "white"
     @next_player = "black"
@@ -89,19 +89,34 @@ class Board
     enemy_moves.include?(king_pos)
   end
 
-  def checkmate?(player)
-    enemy_moves = []
-    king_possible_moves = []
+  def get_pieces
+    out = []
     @board.each do |row|
       row.each do |col|
-        king_possible_moves = col.move_dirs if col.is_a?(King) && col.color == @current_player
-        enemy_moves += col.move_dirs unless col.nil? || col.color == @current_player
+        out << col unless col.nil?
       end
     end
-    p king_possible_moves
-    p enemy_moves
-    in_check?(@current_player) && king_possible_moves.all? {|el| enemy_moves.include?(el)}
+    out
   end
+
+  def checkmate?(player)
+    return false unless in_check?(player)
+    get_pieces.each do |piece|
+      return false unless piece.valid_moves.empty?
+    end
+    true
+  end
+
+  def dup
+    test_board = Board.new
+    @board.each_with_index do |row, idx1|
+      row.each_with_index do |col, idx2|
+        test_board.board[idx1][idx2] = col.class.new(col.color, col.pos, col.board)
+      end
+    end
+    test_board
+  end
+
 
   def [](pos)
     x, y = pos
@@ -123,4 +138,3 @@ end
 # bishop = Bishop.new("black", [5,5], board)
 # board = Board.new
 # rook = Rook.new("black", [4,5], board)
-board = Board.new

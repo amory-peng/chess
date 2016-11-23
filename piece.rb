@@ -5,4 +5,12 @@ class Piece
     @pos = pos
     @board = board
   end
+
+  def valid_moves
+    moves.reject {|pos| move_into_check?(pos)}
+  end
+
+  def move_into_check(pos)
+
+  end
 end
