@@ -1,23 +1,22 @@
 require_relative "piece"
-require_relative "slidingpiece"
+require_relative "steppingpiece"
 
-class Bishop < Piece
+class King < Piece
   attr_accessor :symbol, :possible_moves
-  include SlidingPiece
+  include SteppingPiece
 
   def initialize(color, pos, board)
     super
     case color
     when "white"
-      @symbol = "♗"
+      @symbol = "♔"
     when "black"
-      @symbol = "♝"
+      @symbol = "♚"
     end
-
   end
 
 
   def move_dirs
-    moves(:bishop)
+    moves(:king)
   end
 end

@@ -5,5 +5,4 @@ class Piece
     @pos = pos
     @board = board
   end
-
 end

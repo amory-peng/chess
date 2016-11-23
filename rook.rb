@@ -1,7 +1,7 @@
 require_relative "piece"
 require_relative "slidingpiece"
 
-class Bishop < Piece
+class Rook < Piece
   attr_accessor :symbol, :possible_moves
   include SlidingPiece
 
@@ -9,15 +9,14 @@ class Bishop < Piece
     super
     case color
     when "white"
-      @symbol = "♗"
+      @symbol = "♖"
     when "black"
-      @symbol = "♝"
+      @symbol = "♜"
     end
-
   end
 
 
   def move_dirs
-    moves(:bishop)
+    moves(:rook)
   end
 end
